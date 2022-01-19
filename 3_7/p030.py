@@ -1,12 +1,14 @@
 n, w = map(int, input().split())
-l = [list(map(int, input().split())) for _ in range(n)]
 dp = [[0]*(w+1) for _ in range(n+1)]
-for i in range(1, n):
-    for j in range(w):
-        wi = l[i][0]
-        if dp[i-1][wi] - l[i][0] <= w:
-            dp[i][wi] = dp[i-1][wi] + l[i][1]
-print(dp, l)
+for i in range(1, n+1):
+    a, b = map(int, input().split())
+    for j in range(w+1):
+        if j < a:
+            dp[i][j] = dp[i-1][j]
+        else:
+            dp[i][j] = max(dp[i-1][j], dp[i-1][j-a]+b)
+print(max(dp[n]))
+
 
 # bit全探索
 
