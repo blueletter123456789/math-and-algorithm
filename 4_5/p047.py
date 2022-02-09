@@ -65,7 +65,7 @@ for i in range(1, n+1):
         color[i] = 1
         dfs(i)
 ans = True
-for i in range(1, n+1):
+for i in range(m):
     if color[al[i]] == color[bl[i]]:
         ans = False
         break
@@ -73,3 +73,42 @@ if ans:
     print('Yes')
 else:
     print('No')
+
+
+###########################################
+import sys
+from collections import deque 
+ 
+def main():
+    def judge():
+        N, M = map(int, readline().split())
+        G = [[] for _ in range(N)]
+        for _ in range(M):
+            a, b = map(int, readline().split())
+            G[a - 1].append(b - 1)  # a <-> b
+            G[b - 1].append(a - 1)
+ 
+        colors = [0] * N
+        for i in range(N):
+            if colors[i] != 0:
+                continue
+            que = deque((i,))
+            colors[i] = 1
+            while que:
+                u = que.popleft()
+                cu = colors[u]
+                for v in G[u]:
+                    if cu == colors[v]:
+                        return False
+                    if colors[v] == 0:
+                        colors[v] = -cu
+                        que.append(v)
+        return True
+ 
+    print("Yes" if judge() else "No")
+ 
+ 
+if __name__ == '__main__':
+    readline = sys.stdin.readline
+    readlines = sys.stdin.readlines
+    main()
