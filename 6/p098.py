@@ -1,3 +1,4 @@
+"""
 def cross(ax, ay, bx, by, cx, cy):
     return (bx-ax)*(by-cy) - (by-ay)*(bx-cx)
 
@@ -33,3 +34,25 @@ if __name__ == '__main__':
         print('INSIDE')
     else:
         print('OUTSIDE')
+"""
+
+# sample source
+n = int(input())
+X = list()
+Y = list()
+for _ in range(n):
+    x, y = map(int, input().split())
+    X.append(x)
+    Y.append(y)
+a, b = map(int, input().split())
+
+cnt = 0
+for i in range(n):
+    xa, ya = X[i] - a, Y[i] - b
+    xb, yb = X[(i+1)%n] - a, Y[(i+1)%n] - b
+    if ya > yb:
+        xa, xb = xb, xa
+        ya, yb = yb, ya
+    if ya <= 0 and yb > 0 and xa*yb - ya*xb < 0:
+        cnt += 1
+print('INSIDE' if cnt % 2 else 'OUTSIDE')
