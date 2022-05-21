@@ -1,19 +1,27 @@
-n = int(input())
-l = list(map(int, input().split()))
+from decimal import Decimal
 
-a = x = l[0]
-b = c = 0
-for i in range(1, n):
-    b = l[i]
-    while a and b:
-        if a >= b:
+def gcd(a, b):
+    while a > 0 and b > 0:
+        if a > b:
             a %= b
         else:
             b %= a
-    if a < b:
-        a = b
-    x = (l[i]*x)//a
-print(x)
+    if a == 0:
+        return b
+    return a
+
+def lcm(a, b):
+    return (a/gcd(a, b)) * b
+
+n = int(input())
+l = list(map(int, input().split()))
+
+lcm_num = lcm(l[0], l[1])
+for i in range(2, n):
+    lcm_num = lcm(lcm_num, l[i])
+
+print(Decimal(lcm_num))
+
 
 # # 最大公約数を返す関数
 # def GCD(A, B):
